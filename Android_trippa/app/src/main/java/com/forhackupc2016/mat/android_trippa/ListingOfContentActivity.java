@@ -1,10 +1,14 @@
 package com.forhackupc2016.mat.android_trippa;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.JsonReader;
+import android.widget.ImageView;
+import android.widget.ListView;
 
 import com.baoyz.swipemenulistview.SwipeMenu;
 import com.baoyz.swipemenulistview.SwipeMenuCreator;
@@ -17,17 +21,24 @@ import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 public class ListingOfContentActivity extends AppCompatActivity {
-
-
+    private ImageView singleImgView;
+    private Bitmap bitmap;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listing_of_content);
+
+        singleImgView = (ImageView) findViewById(R.id.imageViewSingleItem);
+        try {
+            Gson jsonObj = getHTTP();
+            //bitmap = getBitmapFromUrl();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         SwipeMenuListView menuListView = (SwipeMenuListView) findViewById(R.id.listView);
         menuListView.setSwipeDirection(SwipeMenuListView.DIRECTION_LEFT);
@@ -80,6 +91,20 @@ public class ListingOfContentActivity extends AppCompatActivity {
 //                return false;
 //            }
 //        });
+        SwipeMenuListView listView= (SwipeMenuListView) findViewById(R.id.listView);
+        listView.setOnSwipeListener(new SwipeMenuListView.OnSwipeListener() {
+            @Override
+            public void onSwipeStart(int position) {
+                // swipe start
+
+            }
+
+            @Override
+            public void onSwipeEnd(int position) {
+                // swipe end
+            }
+        });
+//        listView.smoothOpenMenu(position);
 
 
     } //End Of onCreate
@@ -102,5 +127,18 @@ public class ListingOfContentActivity extends AppCompatActivity {
         gson.fromJson(strFileContents, ListedElement.class);
 
         return gson;
+    }
+    public Bitmap getBitmapFromUrl(String src){
+        try{
+            URL url = new URL(src);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setDoInput(true);
+            connection.connect();
+            InputStream input = connection.getInputStream();
+            return BitmapFactory.decodeStream(input);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return  null;
     }
 } // End Of Class
