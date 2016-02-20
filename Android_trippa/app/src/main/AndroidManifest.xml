@@ -17,7 +17,8 @@
         </activity>
         <activity android:name=".SelectActivity" />
         <activity android:name=".SelectFavoritesActivity" />
-        <activity android:name=".RankingForFavortisActivity"></activity>
+        <activity android:name=".RankingForFavortisActivity" />
+        <activity android:name=".ListingOfContentActivity"></activity>
     </application>
 
 </manifest>
