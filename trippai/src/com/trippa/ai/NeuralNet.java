@@ -69,6 +69,14 @@ public class NeuralNet {
         }
     }
 
+    public Neuron[] getHiddenNeurons(){
+        return hiddenNeurons;
+    }
+
+    public Neuron getOutputNeuron(){
+        return outputNeuron;
+    }
+
     public static java.sql.Connection getConnectionDB(){
         return connectionDB;
     }
@@ -299,6 +307,12 @@ public class NeuralNet {
         }
         applyPatternToNet(temp);
         return outputNeuron.getOutput();
+    }
+    public double getOutputForTraining(){
+        return outputNeuron.getOutput();
+    }
+    public double getHiddenForTraining(int i){
+        return hiddenNeurons[i].getOutput();
     }
 
 }
