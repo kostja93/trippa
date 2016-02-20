@@ -7,5 +7,5 @@ package com.trippa;
 import java.sql.*;
 
 public class LocalActivities {
-
+    int a;
 }
