@@ -1,6 +1,7 @@
 package com.forhackupc2016.mat.android_trippa;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,8 +33,8 @@ import android.widget.TextView;
 public class ListAdapter extends ArrayAdapter<String> {
 
         private final Activity context;
-        private final String[] imageUrl;
-        public ListAdapter(Activity context,  String[] imageUrl) {
+        private final Integer[] imageUrl;
+        public ListAdapter(Activity context,  Integer[] imageUrl) {
 
             super(context, R.layout.input_of_listing);
             this.context = context;
@@ -48,7 +49,7 @@ public class ListAdapter extends ArrayAdapter<String> {
 
             ImageView imageView = (ImageView) singleView.findViewById(R.id.imageViewSingleItem);
 
-//            imageView.setI(imageUrl);
+            imageView.setImageResource(imageUrl[position]);
             return singleView;
         }
     }
