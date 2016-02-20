@@ -5,20 +5,23 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 
-public class MainActivity extends AppCompatActivity {
+public class SelectFavoritesActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_select_favorits);
 
-        Button buttonLogin = (Button) findViewById(R.id.buttonLogin);
+        RelativeLayout buttonSelectItem1 = (RelativeLayout) findViewById(R.id.buttonSelectItem1);
 
-        buttonLogin.setOnClickListener(new View.OnClickListener() {
+        buttonSelectItem1.setClickable(true);
+
+        buttonSelectItem1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), SelectFavoritesActivity.class);
+                Intent intent = new Intent(v.getContext(), RankingForFavortisActivity.class);
                 startActivityForResult(intent, 0);
             }
         });
