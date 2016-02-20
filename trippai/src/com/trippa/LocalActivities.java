@@ -4,6 +4,8 @@ package com.trippa;
  * Created by fu on 20.02.16.
  */
 
+import com.trippa.ai.NeuralNet;
+
 import java.sql.*;
 
 public class LocalActivities {
@@ -19,9 +21,11 @@ public class LocalActivities {
 
     // DB
     private ResultSet locations;
-    private Connection connection;
+    private ResultSet users;
+    private com.trippa.ai.Connection connection;
     private Statement statement;
 
+    // DB connection missing
     public LocalActivities(){
         if(thisObject == null){
             thisObject = this;
@@ -77,5 +81,21 @@ public class LocalActivities {
         else return false;
     }
 
+    // ai rating
+    public double getRating(int iD){
 
+    }
+
+    // get user
+    private int getUser(int iD){
+        try{
+            double[] weights;
+            users = statement.executeQuery(("SELECT * FROM users WHERE ID = " + iD));
+            weights = (double[]) users.getObject("NNet"); // get the double array with connection weights
+            NeuralNet.getNeuralNet().initNNet(weights);
+        } catch(Exception e){
+            System.out.println("couldnt get user");
+        }
+
+    }
 }
