@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:text="@string/setDefaultsScreenIntroText"
         android:textSize="30sp"
-        android:textColor="#5F9EA0"
+        android:textColor="@color/lightBlue"
         android:id="@+id/textView"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
