@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.forhackupc2016.mat.android_trippa.RankingForFavortisActivity">
+    tools:context=".RankingForFavoritesActivity">
     <TextView
         android:paddingTop="15dp"
         android:layout_width="wrap_content"
@@ -83,6 +83,13 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/rankingButtonContinue"
+        android:id="@+id/buttonRankingContinue"
+        android:layout_below="@+id/spinnerPriceRange"
+        android:layout_centerHorizontal="true" />
 
 
 </RelativeLayout>

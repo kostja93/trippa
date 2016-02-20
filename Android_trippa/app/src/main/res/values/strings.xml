@@ -11,5 +11,7 @@
     <string name="rankingForFavoritesItem1">Ambiance</string>
     <string name="rankingForFavoritesItem2">Furnishings</string>
     <string name="rankingForFavoritesItem3">Price Range</string>
-    <string name="listingOfContentDrunk">Ok, I'm Drunk</string>
+    <string name="listingOfContentDrunk">Ok Im Drunk</string>
+    <string name="rankingButtonContinue">Lets Go</string>
+
 </resources>

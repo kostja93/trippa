@@ -69,6 +69,14 @@ public class NeuralNet {
         }
     }
 
+    public Neuron[] getHiddenNeurons(){
+        return hiddenNeurons;
+    }
+
+    public Neuron getOutputNeuron(){
+        return outputNeuron;
+    }
+
     public static java.sql.Connection getConnectionDB(){
         return connectionDB;
     }
@@ -121,7 +129,6 @@ public class NeuralNet {
             for(int i = 0; i < hiddenNeurons.length; i++){
                 for(int k = 0; k < inputNeurons.length; k++){
                     hiddenNeurons[i].getConnections()[k].setWeight(Math.random() * 2 - 1);
-                    System.out.println("Hidden Neuron Connection " + k + "." + i + " : " + hiddenNeurons[i].getConnections()[k].getWeight());
                 }
             }
             for(int i = 0;  i < hiddenNeurons.length; i++){
@@ -134,7 +141,6 @@ public class NeuralNet {
         try {
             connectionDB = DriverManager.getConnection("jdbc:sqlite:../database.db");
             stmt = connectionDB.createStatement();
-            System.out.println("connection to DB established");
         }catch(Exception e){
             System.out.println("couldnt init DB Connection");
         }
@@ -167,11 +173,14 @@ public class NeuralNet {
         createWeightArrayFromCurrent();
 
         try {
+            stmt.execute("DELETE FROM weighting WHERE user_id = " + userId);
             for(int i = 0; i < weightArray.length; i++) {
-                stmt.execute("INSERT INTO weighting (user_id, value, key) VALUES (" +
-                        userId + ", " +
-                        weightArray[i] + ", " +
-                        i + ")");
+                String sql;
+                sql = "INSERT INTO weighting (user_id, value, key) VALUES (" +
+                            userId + ", " +
+                            weightArray[i] + ", " +
+                            i + ")";
+                stmt.execute(sql);
             }
         }catch(Exception e){
             System.out.println(e.getMessage());
@@ -276,18 +285,14 @@ public class NeuralNet {
 
         inputPattern[6] = starsAverage;
         applyPatternToNet(inputPattern);
-        for (int i = 0; i < inputPattern.length; i++) {
-            System.out.println("input Neuron: " + i);
-            System.out.println("input value: " + inputPattern[i]);
-        }
-
     }
+
     public int[] createTrainingPattern(int locationId, int liked){
         int[] temp = new int[8];
         setLocationAverageRating(locationId);
         prepareNetInputFromLocation(locationId);
         for(int i = 1; i < 8; i++){
-            temp[i] = (int) inputNeurons[i].getOutput();
+            temp[i] = Math.round((float)inputNeurons[i-1].getOutput());
         }
         return temp;
     }
@@ -299,6 +304,12 @@ public class NeuralNet {
         }
         applyPatternToNet(temp);
         return outputNeuron.getOutput();
+    }
+    public double getOutputForTraining(){
+        return outputNeuron.getOutput();
+    }
+    public double getHiddenForTraining(int i){
+        return hiddenNeurons[i].getOutput();
     }
 
 }
