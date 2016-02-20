@@ -15,6 +15,7 @@ public class NeuralNet {
     private int priceAverage = 0;
     private int equipmentAverage = 0;
     private int atmosphereAverage = 0;
+    private int starsAverage = 0;
 
     private static NeuralNet thisObject;
 
@@ -91,20 +92,20 @@ public class NeuralNet {
                 priceAverage += locationRating.getInt("price_id");
                 equipmentAverage += locationRating.getInt("equipment_id");
                 atmosphereAverage += locationRating.getInt("atmosphere_id");
+                starsAverage += locationRating.getInt("stars");
                 counterTemp++;
             }
             if(counterTemp > 0) {
                 equipmentAverage = Math.round(equipmentAverage / counterTemp);
                 atmosphereAverage = Math.round(atmosphereAverage / counterTemp);
                 priceAverage = Math.round(priceAverage / counterTemp);
+                starsAverage = Math.round(starsAverage / counterTemp);
             }else{
                 equipmentAverage = 1;
                 atmosphereAverage = 1;
                 priceAverage = 1;
+                starsAverage = 0;
             }
-            System.out.println("equipmentaverage: " + equipmentAverage);
-            System.out.println("priceaverage: " + priceAverage);
-            System.out.println("atmosphereaverage: " + atmosphereAverage);
 
         }catch(Exception e){
             System.out.println("couldnt get locationRating");
@@ -156,7 +157,7 @@ public class NeuralNet {
         }
     }
 
-    private void createInputPattern(int[] pattern){
+    private void applyPatternToNet(int[] pattern){
         for(int i = 0; i < inputNeurons.length; i++){
             inputNeurons[i].setOutput(pattern[i]);
         }
@@ -272,10 +273,9 @@ public class NeuralNet {
                 inputPattern[5] = 0;
                 break;
         }
-         // Bewertung von anderen muss noch implementiert werden
-        inputPattern[6] = 0;
 
-        createInputPattern(inputPattern);
+        inputPattern[6] = starsAverage;
+        applyPatternToNet(inputPattern);
         for (int i = 0; i < inputPattern.length; i++) {
             System.out.println("input Neuron: " + i);
             System.out.println("input value: " + inputPattern[i]);
@@ -292,5 +292,13 @@ public class NeuralNet {
         return temp;
     }
 
+    public double parseTrainingPattern(int[] a){
+        int[] temp = new int[7];
+        for(int i = 1; i < a.length; i++){
+            temp[i-1] = a[i];
+        }
+        applyPatternToNet(temp);
+        return outputNeuron.getOutput();
+    }
 
 }
