@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
+use App\Location;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class UserController extends Controller
+class LocationController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +17,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return User::all();
+        return Location::all();
     }
 
     /**
@@ -38,12 +38,17 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $user = new User();
+        $location = new Location();
 
-        $user->name = $request->get('name');
+        $location->name = $request->get('name');
+        $location->picture = $request->get('picture');
+        $location->lat = $request->lat('lat');
+        $location->lon = $request->lon('lon');
 
-        if($user->save())
-            return $user;
+        if($location->save()) {
+            return $location;
+        }
+
         return $this->errorMsg();
     }
 
@@ -55,15 +60,11 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        try {
-            $user = User::find($id);
-            if ($user) {
-                return $user->firstOrFail();
-            } else
-                return [];
-        }catch (\Exception $e) {
-            return $this->errorMsg();
-        }
+        $location = Location::find($id);
+
+        if($location)
+            return $location->first();
+        return $this->errorMsg();
     }
 
     /**
@@ -97,11 +98,11 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        /** @var User $location */
-        $user = User::find($id);
+        /** @var Location $location */
+        $location = Location::find($id);
 
-        if($user) {
-            $user->delete();
+        if($location) {
+            $location->delete();
 
             return ["status" => true];
         }
