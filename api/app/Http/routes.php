@@ -19,6 +19,7 @@ Route::get('/', function () {
 Route::post('user','UserController@store');
 Route::get('user/{id}','UserController@show');
 Route::post('user/like', 'LikeController@store');
+Route::get('user/location/{lat}/{lon}', 'UserController@locations');
 
 //Locations
 Route::get('location', 'LocationController@index');

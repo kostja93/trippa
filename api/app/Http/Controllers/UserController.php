@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Location;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -52,5 +53,9 @@ class UserController extends Controller
         }catch (\Exception $e) {
             return $this->errorMsg();
         }
+    }
+
+    public function locations($lat, $lon) {
+        return Location::all();
     }
 }
