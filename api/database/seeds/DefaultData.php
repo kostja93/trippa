@@ -65,6 +65,7 @@ class DefaultData extends Seeder
             $like->price_id = rand(0, 2);
             $like->equipment_id = rand(0, 2);
             $like->atmosphere_id = rand(0, 2);
+            $like->stars = rand(0, 5);
 
             $like->save();
         }
