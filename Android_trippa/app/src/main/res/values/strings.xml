@@ -5,7 +5,7 @@
     <string name="firstScreenBTNlogin">Login</string>
     <string name="setDefaultsScreenIntroText">What you are looking for?</string>
     <string name="setDefaultsScreenItem1">Local Bars</string>
-    <string name="setDefaultsScreenItem2">Sideseeing</string>
+    <string name="setDefaultsScreenItem2">Sightseeing</string>
     <string name="setDefaultsScreenItem3">Hotels</string>
     <string name="setDefaultsScreenItem4">Show Me Everything!</string>
 </resources>

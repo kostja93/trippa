@@ -15,7 +15,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SetYourDefaultsActivity"></activity>
+        <activity android:name=".SetYourDefaultsActivity" />
+        <activity android:name=".SelectActivity" />
+        <activity android:name=".SelectFavoritsActivity"></activity>
     </application>
 
 </manifest>
