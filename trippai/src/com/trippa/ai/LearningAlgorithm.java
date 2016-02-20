@@ -22,6 +22,8 @@ public class LearningAlgorithm {
     private Statement stmt;
     private ResultSet likes;
 
+    private static double learnRate = 0.01;
+
     public void trainNeuralNet(int userId){
         try {
             int tempLocation;
@@ -60,7 +62,17 @@ public class LearningAlgorithm {
         error = 0;
         for(int i = 0; i < trainingPatterns.length; i++){
             if(trainingPatterns[i] == null) break;
-            error +=
+            NeuralNet.getNeuralNet().parseTrainingPattern(trainingPatterns[i]);
         }
     }
+
+    private double calcDeltaForOutput(){
+
+    }
+
+    private double calcDeltaForHidden(Neuron neuron){
+
+    }
+
+
 }
