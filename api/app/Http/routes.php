@@ -24,3 +24,6 @@ Route::post('user/like', 'LikeController@store');
 Route::get('location', 'LocationController@index');
 Route::post('location', 'LocationController@store');
 Route::get('location/{id}', 'LocationController@show');
+
+//Values
+Route::get('values', 'ValuesController@index');
