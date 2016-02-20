@@ -82,7 +82,8 @@ public class NeuralNet {
     public double getOutput(int locationId, int userId){
         setLocationAverageRating(locationId);
         initNNetFromDB(userId);
-        return 1;
+        prepareNetInputFromLocation(locationId);
+        return outputNeuron.getOutput();
     }
 
     private void setLocationAverageRating(int locationId){
@@ -104,6 +105,10 @@ public class NeuralNet {
                 atmosphereAverage = 1;
                 priceAverage = 1;
             }
+            System.out.println("equipmentaverage: " + equipmentAverage);
+            System.out.println("priceaverage: " + priceAverage);
+            System.out.println("atmosphereaverage: " + atmosphereAverage);
+
         }catch(Exception e){
             System.out.println("couldnt get locationRating");
         }
@@ -118,9 +123,13 @@ public class NeuralNet {
             for(int i = 0; i < hiddenNeurons.length; i++){
                 for(int k = 0; k < inputNeurons.length; k++){
                     hiddenNeurons[i].getConnections()[k].setWeight(Math.random() * 2 - 1);
-                    System.out.println("Connection " + k + "." + i + " : " + hiddenNeurons[i].getConnections()[k].getWeight());
+                    System.out.println("Hidden Neuron Connection " + k + "." + i + " : " + hiddenNeurons[i].getConnections()[k].getWeight());
                 }
             }
+            for(int i = 0;  i < hiddenNeurons.length; i++){
+                outputNeuron.getConnections()[i].setWeight(Math.random() * 2 - 1);
+            }
+
     }
 
     private void initDbConnection(){
@@ -151,7 +160,9 @@ public class NeuralNet {
     }
 
     private void createInputPattern(int[] pattern){
-
+        for(int i = 0; i < inputNeurons.length; i++){
+            inputNeurons[i].setOutput(pattern[i]);
+        }
     }
 
     public void safeWeigths(int userId){
@@ -207,7 +218,67 @@ public class NeuralNet {
     }
 
     private void prepareNetInputFromLocation(int locationId){
+        int[] inputPattern = new int[7];
+        switch(priceAverage){
+            case 0:
+                inputPattern[0] = 0;
+                inputPattern[1] = 1;
+                break;
+            case 1:
+                inputPattern[0] = 1;
+                inputPattern[1] = 0;
+                break;
+            case 2:
+                inputPattern[0] = 1;
+                inputPattern[1] = 1;
+                break;
+            default:
+                inputPattern[0] = 0;
+                inputPattern[1] = 0;
+                break;
+        }
+        switch(equipmentAverage){
+            case 0:
+                inputPattern[2] = 0;
+                inputPattern[3] = 1;
+                break;
+            case 1:
+                inputPattern[2] = 1;
+                inputPattern[3] = 0;
+                break;
+            case 2:
+                inputPattern[2] = 1;
+                inputPattern[3] = 1;
+                break;
+            default:
+                inputPattern[2] = 0;
+                inputPattern[3] = 0;
+                break;
+        }
+        switch(atmosphereAverage){
+            case 0:
+                inputPattern[4] = 0;
+                inputPattern[5] = 1;
+                break;
+            case 1:
+                inputPattern[4] = 1;
+                inputPattern[5] = 0;
+                break;
+            case 2:
+                inputPattern[4] = 1;
+                inputPattern[5] = 1;
+                break;
+            default:
+                inputPattern[4] = 0;
+                inputPattern[5] = 0;
+                break;
+        }
 
+        createInputPattern(inputPattern);
+        for(int i = 0; i < inputPattern.length; i++){
+            System.out.println("input Neuron: " + i);
+            System.out.println("input value: " + inputPattern[i]);
+        }
     }
 
 }

@@ -28,10 +28,8 @@ public class Neuron {
     private double getInput(){
         input = 0;
         for(int i = 0; i < connections.length; i++){
-            if(connections[i] != null){
-                input += connections[i].getNeuron().getOutput() * connections[i].getWeight();
+            input += connections[i].getNeuron().getOutput() * connections[i].getWeight();
             }
-        }
         return input;
     }
 
