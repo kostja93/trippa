@@ -15,7 +15,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('user', 'UserController');
-Route::resource('location', 'LocationController');
-
+//User
+Route::post('user','UserController@store');
+Route::get('user/{id}','UserController@show');
 Route::post('user/like', 'LikeController@store');
+
+//Locations
+Route::get('location', 'LocationController@index');
+Route::post('location', 'LocationController@store');
+Route::get('location/{id}', 'LocationController@show');
