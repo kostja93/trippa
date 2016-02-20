@@ -42,9 +42,12 @@ class UserController extends Controller
 
         $user->name = $request->get('name');
 
-        if($user->save())
+        try {
+            $user->save();
             return $user;
-        return $this->errorMsg();
+        } catch(\Exception $e) {
+            return $this->errorMsg();
+        }
     }
 
     /**

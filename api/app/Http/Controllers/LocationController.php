@@ -45,11 +45,12 @@ class LocationController extends Controller
         $location->lat = $request->lat('lat');
         $location->lon = $request->lon('lon');
 
-        if($location->save()) {
+        try {
+            $location->save();
             return $location;
+        } catch(\Exception $e) {
+            return $this->errorMsg();
         }
-
-        return $this->errorMsg();
     }
 
     /**
