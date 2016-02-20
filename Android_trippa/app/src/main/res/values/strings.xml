@@ -7,5 +7,9 @@
     <string name="setDefaultsScreenItem1">Local Bars</string>
     <string name="setDefaultsScreenItem2">Sightseeing</string>
     <string name="setDefaultsScreenItem3">Hotels</string>
-    <string name="setDefaultsScreenItem4">Show Me Everything!</string>
+    <string name="rankingForFavoritesIntro">How should it be?</string>
+    <string name="rankingForFavoritesItem1">Ambiance</string>
+    <string name="rankingForFavoritesItem2">Furnishings</string>
+    <string name="rankingForFavoritesItem3">Price Range</string>
+    <string name="listingOfContentDrunk">Ok, I'm Drunk</string>
 </resources>
