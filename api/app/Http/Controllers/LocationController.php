@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\GoogleLocationApi;
 use App\Location;
+use App\SkyScannerHotels;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -56,5 +58,16 @@ class LocationController extends Controller
         if($location)
             return $location->first();
         return $this->errorMsg();
+    }
+
+    public function locations($lat, $lon, $radius = 1000) {
+        $gal = new GoogleLocationApi(env('GOOGLE_API'));
+        return $gal->get($lat, $lon, $radius);
+    }
+
+    public function hotels($lat, $lon) {
+        $ssh = new SkyScannerHotels(env('SKY_SCANNER_API'));
+
+        return $ssh->get($lat, $lon);
     }
 }

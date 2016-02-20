@@ -19,12 +19,13 @@ Route::get('/', function () {
 Route::post('user','UserController@store');
 Route::get('user/{id}','UserController@show');
 Route::post('user/like', 'LikeController@store');
-Route::get('user/location/{lat}/{lon}/{radius?}', 'UserController@locations');
 
 //Locations
 Route::get('location', 'LocationController@index');
 Route::post('location', 'LocationController@store');
 Route::get('location/{id}', 'LocationController@show');
+Route::get('location/{lat}/{lon}/{radius?}', 'LocationController@locations');
+Route::get('hotels/{lat}/{lon}', 'LocationController@hotels');
 
 //Values
 Route::get('values', 'ValuesController@index');
