@@ -20,10 +20,7 @@ public class NeuralNet {
 
     private static java.sql.Connection connectionDB;
     private ResultSet weightingQuery;
-    private ResultSet likes;
     private ResultSet locationRating;
-    private ResultSet initialRating;
-
 
     private Statement stmt;
 
@@ -114,7 +111,7 @@ public class NeuralNet {
         }
     }
 
-    private void initNNetFromDB(int userId){
+    public void initNNetFromDB(int userId){
         getWeightArrayFromDB(userId);
         initWeightingFromDB(weightArray);
     }
@@ -129,7 +126,7 @@ public class NeuralNet {
             for(int i = 0;  i < hiddenNeurons.length; i++){
                 outputNeuron.getConnections()[i].setWeight(Math.random() * 2 - 1);
             }
-
+            safeWeigths(userId);
     }
 
     private void initDbConnection(){
@@ -167,14 +164,16 @@ public class NeuralNet {
 
     public void safeWeigths(int userId){
         createWeightArrayFromCurrent();
+
         try {
             for(int i = 0; i < weightArray.length; i++) {
-                stmt.executeQuery("INSERT INTO weighting (user_id, value, key) VALUES (" +
+                stmt.execute("INSERT INTO weighting (user_id, value, key) VALUES (" +
                         userId + ", " +
                         weightArray[i] + ", " +
                         i + ")");
             }
         }catch(Exception e){
+            System.out.println(e.getMessage());
             System.out.println("updating weighting failed");
         }
     }
@@ -217,9 +216,9 @@ public class NeuralNet {
         }
     }
 
-    private void prepareNetInputFromLocation(int locationId){
+    private void prepareNetInputFromLocation(int locationId) {
         int[] inputPattern = new int[7];
-        switch(priceAverage){
+        switch (priceAverage) {
             case 0:
                 inputPattern[0] = 0;
                 inputPattern[1] = 1;
@@ -237,7 +236,7 @@ public class NeuralNet {
                 inputPattern[1] = 0;
                 break;
         }
-        switch(equipmentAverage){
+        switch (equipmentAverage) {
             case 0:
                 inputPattern[2] = 0;
                 inputPattern[3] = 1;
@@ -255,7 +254,7 @@ public class NeuralNet {
                 inputPattern[3] = 0;
                 break;
         }
-        switch(atmosphereAverage){
+        switch (atmosphereAverage) {
             case 0:
                 inputPattern[4] = 0;
                 inputPattern[5] = 1;
@@ -273,12 +272,25 @@ public class NeuralNet {
                 inputPattern[5] = 0;
                 break;
         }
+         // Bewertung von anderen muss noch implementiert werden
+        inputPattern[6] = 0;
 
         createInputPattern(inputPattern);
-        for(int i = 0; i < inputPattern.length; i++){
+        for (int i = 0; i < inputPattern.length; i++) {
             System.out.println("input Neuron: " + i);
             System.out.println("input value: " + inputPattern[i]);
         }
+
     }
+    public int[] createTrainingPattern(int locationId, int liked){
+        int[] temp = new int[8];
+        setLocationAverageRating(locationId);
+        prepareNetInputFromLocation(locationId);
+        for(int i = 1; i < 8; i++){
+            temp[i] = (int) inputNeurons[i].getOutput();
+        }
+        return temp;
+    }
+
 
 }

@@ -10,7 +10,7 @@ public class Main {
         // write your code here
         NeuralNet net = new NeuralNet();
         LocalActivities localActivities = new LocalActivities();
-        net.initFirstTimeUser(1);
+        net.initNNetFromDB(1);
         System.out.println("Neural Net output: " + net.getOutput(1, 1));
     }
 }
