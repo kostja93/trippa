@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Location;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -41,11 +42,20 @@ class UserController extends Controller
         try {
             $user = User::find($id);
             if ($user) {
-                return $user->firstOrFail();
+                /** @var User $user */
+                $user = $user->firstOrFail();
+                return [
+                    "user" =>$user,
+                    "settings" => $user->setting
+                ];
             } else
                 return [];
         }catch (\Exception $e) {
             return $this->errorMsg();
         }
+    }
+
+    public function locations($lat, $lon) {
+        return Location::all();
     }
 }
