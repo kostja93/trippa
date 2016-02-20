@@ -22,17 +22,15 @@ public class LocalActivities {
     // DB
     private ResultSet locations;
     private ResultSet users;
-    private com.trippa.ai.Connection connection;
     private Statement statement;
 
-    // DB connection missing
+
     public LocalActivities(){
         if(thisObject == null){
             thisObject = this;
             try {
-                connection = DriverManager.getConnection("jdbc:sqlite:test.db");
-                statement = connection.createStatement();
-                locations = statement.executeQuery("SELECT * FROM locations;");
+                statement = NeuralNet.getConnectionDB().createStatement();
+                locations = statement.executeQuery("SELECT * FROM locations");
             } catch(Exception e){
                 System.out.print("DB error");
             }
@@ -54,9 +52,9 @@ public class LocalActivities {
 
         try {
             while (locations.next()) {
-                if (isCloseLocation(locations.getDouble("Longitude"), userLongitude, maxDistance)) {
-                    if (isCloseLocation(locations.getDouble("Latitude"), userLatitude, maxDistance)) {
-                        closeLocationsIds[counter] = locations.getInt("ID");
+                if (isCloseLocation(locations.getDouble("lon"), userLongitude, maxDistance)) {
+                    if (isCloseLocation(locations.getDouble("lat"), userLatitude, maxDistance)) {
+                        closeLocationsIds[counter] = locations.getInt("id");
                         if (counter == closeLocationsIds.length) enlargeArray(closeLocationsIds);
                     }
                 }
@@ -82,20 +80,8 @@ public class LocalActivities {
     }
 
     // ai rating
-    public double getRating(int iD){
-
+    public double getRating(int locationId){
+        return 1;
     }
 
-    // get user
-    private int getUser(int iD){
-        try{
-            double[] weights;
-            users = statement.executeQuery(("SELECT * FROM users WHERE ID = " + iD));
-            weights = (double[]) users.getObject("NNet"); // get the double array with connection weights
-            NeuralNet.getNeuralNet().initNNet(weights);
-        } catch(Exception e){
-            System.out.println("couldnt get user");
-        }
-
-    }
 }

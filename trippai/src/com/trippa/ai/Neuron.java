@@ -13,17 +13,15 @@ public class Neuron {
     private Connection[] connections;
     private int counter = 0;
 
-    public Neuron(boolean isInput){
+    public Neuron(boolean isInput, int numberOfConnections){
         isInputLayer = isInput;
-        connections = new Connection[5];
+        connections = new Connection[numberOfConnections];
     }
 
     public void addConnection(Connection newConnection){
         if(counter < connections.length) {
             connections[counter] = newConnection;
             counter++;
-        }else{
-            throw new ArrayIndexOutOfBoundsException(counter, "Array out of bound, connections in Neuron");
         }
     }
 
