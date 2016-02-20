@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\GoogleLocationApi;
 use App\Location;
 use App\User;
 use Illuminate\Http\Request;
@@ -55,7 +56,8 @@ class UserController extends Controller
         }
     }
 
-    public function locations($lat, $lon) {
-        return Location::all();
+    public function locations($lat, $lon, $radius = 1000) {
+        $gal = new GoogleLocationApi(env('GOOGLE_API'));
+        return $gal->get($lat, $lon, $radius);
     }
 }
