@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.forhackupc2016.mat.android_trippa.SelectFavoritsActivity">
+    tools:context=".SelectFavoritesActivity">
     <TextView
         android:paddingTop="15dp"
         android:layout_width="wrap_content"
@@ -20,11 +20,12 @@
         android:layout_centerHorizontal="true" />
 
     <RelativeLayout
-        android:id="@+id/button5"
+        android:id="@+id/buttonSelectItem1"
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:background="@android:drawable/btn_default"
         android:clickable="true"
+        android:focusable="true"
         android:orientation="horizontal"
         android:padding="0dp"
         android:layout_marginTop="75dp">
@@ -35,7 +36,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_margin="0dp"
-            android:background="@drawable/item003" />
+            android:background="@drawable/item003"
+            android:duplicateParentState="true"/>
 
         <TextView
             android:id="@+id/textView5"
@@ -44,14 +46,16 @@
             android:layout_margin="5dp"
             android:text="@string/setDefaultsScreenItem1"
             android:background="@color/lightBlue30"
-            android:textSize="15sp" />
+            android:textSize="15sp"
+            android:duplicateParentState="true"/>
     </RelativeLayout>
     <RelativeLayout
-        android:id="@+id/button6"
+        android:id="@+id/buttonSelectItem2"
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:background="@android:drawable/btn_default"
         android:clickable="true"
+        android:focusable="true"
         android:orientation="horizontal"
         android:padding="0dp"
         android:layout_marginTop="240dp">
@@ -62,7 +66,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_margin="0dp"
-            android:background="@drawable/item002" />
+            android:background="@drawable/item002"
+            android:duplicateParentState="true"/>
 
         <TextView
             android:id="@+id/textView6"
@@ -71,14 +76,16 @@
             android:layout_margin="5dp"
             android:text="@string/setDefaultsScreenItem3"
             android:background="@color/lightBlue30"
-            android:textSize="15sp" />
+            android:textSize="15sp"
+            android:duplicateParentState="true"/>
     </RelativeLayout>
     <RelativeLayout
-        android:id="@+id/button7"
+        android:id="@+id/buttonSelectItem3"
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:background="@android:drawable/btn_default"
         android:clickable="true"
+        android:focusable="true"
         android:orientation="horizontal"
         android:padding="0dp"
         android:layout_marginTop="405dp">
@@ -89,7 +96,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_margin="0dp"
-            android:background="@drawable/item001" />
+            android:background="@drawable/item001"
+            android:duplicateParentState="true"/>
 
         <TextView
             android:id="@+id/textView7"
@@ -98,6 +106,7 @@
             android:layout_margin="5dp"
             android:text="@string/setDefaultsScreenItem2"
             android:background="@color/lightBlue30"
-            android:textSize="15sp" />
+            android:textSize="15sp"
+            android:duplicateParentState="true"/>
     </RelativeLayout>
 </RelativeLayout>
