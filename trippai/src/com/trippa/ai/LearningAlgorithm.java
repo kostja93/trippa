@@ -8,9 +8,6 @@ import java.sql.Statement;
  */
 public class LearningAlgorithm {
 
-    public LearningAlgorithm(){
-    }
-
     private int[][] trainingPatterns;
     private int counterPattern = 0;
 
@@ -21,19 +18,32 @@ public class LearningAlgorithm {
     private double[] deltaWeightArray = new double[24];
     private int currentPattern = 0;
 
+
     public void trainNeuralNet(int userId){
         try {
+            trainingPatterns = new int[8][8];
             int tempLocation;
             int tempLike;
+            System.out.println("creating statement");
             stmt = NeuralNet.getConnectionDB().createStatement();
+            System.out.println("gathering likes");
             likes = stmt.executeQuery("SELECT * FROM likes WHERE user_id = " + userId);
+            System.out.println("entering while");
             while(likes.next()){
                 tempLocation = likes.getInt("location_id");
+                System.out.println("templocation assigned");
                 tempLike = likes.getInt("like");
+                System.out.println("templike assigned");
                 addLikeToPatternList(tempLocation, tempLike);
+                System.out.println("called addLikeToPatternList");
+                refreshWeightArray();
+                System.out.println("refreshed weightarray");
+                NeuralNet.getNeuralNet().safeWeigths(userId);
+                System.out.println("saved weights");
             }
             applyLearningAlgorithm();
         }catch(Exception e){
+            System.out.println("coudlnt load Likes");
             System.out.println(e.getMessage());
         }
 
@@ -89,5 +99,15 @@ public class LearningAlgorithm {
         return output;
     }
 
+    private void refreshWeightArray(){
+        for(int i = 0; i < 3; i++){
+            for(int j = 0; j < 7; j++){
+            NeuralNet.getNeuralNet().getHiddenNeurons()[i].getConnections()[j].setWeight(deltaWeightArray[7*i+j] + NeuralNet.getNeuralNet().getHiddenNeurons()[i].getConnections()[j].getWeight());
+            }
+        }
+        NeuralNet.getNeuralNet().getOutputNeuron().getConnections()[0].setWeight(deltaWeightArray[21] + NeuralNet.getNeuralNet().getOutputNeuron().getConnections()[0].getWeight());
+        NeuralNet.getNeuralNet().getOutputNeuron().getConnections()[0].setWeight(deltaWeightArray[22] + NeuralNet.getNeuralNet().getOutputNeuron().getConnections()[0].getWeight());
+        NeuralNet.getNeuralNet().getOutputNeuron().getConnections()[0].setWeight(deltaWeightArray[23] + NeuralNet.getNeuralNet().getOutputNeuron().getConnections()[0].getWeight());
+    }
 
 }

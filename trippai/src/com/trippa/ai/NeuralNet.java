@@ -295,7 +295,7 @@ public class NeuralNet {
         setLocationAverageRating(locationId);
         prepareNetInputFromLocation(locationId);
         for(int i = 1; i < 8; i++){
-            temp[i] = (int) inputNeurons[i].getOutput();
+            temp[i] = Math.round((float)inputNeurons[i-1].getOutput());
         }
         return temp;
     }
