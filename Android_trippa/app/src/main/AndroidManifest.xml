@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.forhackupc2016.mat.android_trippa">
-
+    <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_action_icon"
@@ -17,7 +17,7 @@
         </activity>
         <activity android:name=".SelectActivity" />
         <activity android:name=".SelectFavoritesActivity" />
-        <activity android:name=".RankingForFavortisActivity" />
+        <activity android:name=".RankingForFavoritesActivity" />
         <activity android:name=".ListingOfContentActivity"></activity>
     </application>
 
