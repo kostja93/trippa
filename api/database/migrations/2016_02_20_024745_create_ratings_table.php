@@ -35,6 +35,7 @@ class CreateRatingsTable extends Migration
             $table->integer('price_id')->unsigned();
             $table->integer('equipment_id')->unsigned();
             $table->integer('atmosphere_id')->unsigned();
+            $table->double('stars')->unsigned();
             $table->timestamps();
 
             $table->foreign('location_id')->references('id')->on('locations');
