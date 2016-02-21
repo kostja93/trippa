@@ -33,7 +33,6 @@ public class LocalActivities {
                 statement = NeuralNet.getConnectionDB().createStatement();
                 locations = statement.executeQuery("SELECT * FROM locations");
             } catch(Exception e){
-                System.out.print("DB error");
             }
         }
 
@@ -62,7 +61,6 @@ public class LocalActivities {
                 }
             }
         } catch(Exception e){
-            System.out.print("Error in getCloseLocation");
         }
         closeLocationsIds[0] = counter;
         return closeLocationsIds;
@@ -97,19 +95,20 @@ public class LocalActivities {
            loc[i] = new Location(getRating(temp[i], userId), temp[i]);
         }
         sortLocations();
-        int[] output = new int[loc.length];
+        int[] output = {0,0,0,0,0};
             for (int i = 0; i < loc.length; i++) {
                 temp[i] = loc[i].getiD();
             }
         for(int i = 0; i < temp.length; i++){
-            if(i >= 5) break;
+            if(i >= 5 || output.length == 0) break;
             output[i] = temp[i];
         }
         return output;
     }
     private void sortLocations(){
         Location[] orderedLoc = new Location[5];
-        Location temp = loc[0];
+        Location temp = null;
+        if(loc.length > 0) temp = loc[0];
         int counter = 0;
         for(int i = 1; i < loc.length; i++){
             for(int j = i + 1; j < loc.length; j++){
