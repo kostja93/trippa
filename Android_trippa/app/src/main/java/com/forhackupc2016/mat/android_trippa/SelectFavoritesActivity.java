@@ -49,24 +49,5 @@ public class SelectFavoritesActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
-
-        Spinner spinner1 = (Spinner) findViewById(R.id.spinnerAmbiance);
-        Spinner spinner2 = (Spinner) findViewById(R.id.spinnerFurnishings);
-        Spinner spinner3 = (Spinner) findViewById(R.id.spinnerPriceRange);
-
-        ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(this,
-                R.array.ambiance_array, android.R.layout.simple_spinner_item);
-        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this,
-                R.array.furnishings_array, android.R.layout.simple_spinner_item);
-        ArrayAdapter<CharSequence> adapter3 = ArrayAdapter.createFromResource(this,
-                R.array.pricerange_array, android.R.layout.simple_spinner_item);
-
-        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        adapter3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        spinner1.setAdapter(adapter1);
-        spinner2.setAdapter(adapter2);
-        spinner3.setAdapter(adapter3);
     }
 }

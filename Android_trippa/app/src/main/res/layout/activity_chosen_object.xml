@@ -14,10 +14,10 @@
         android:layout_height="wrap_content"
         android:id="@+id/imageView"
         android:background="@drawable/buildig"
-        android:layout_below="@+id/textView2"
+        android:layout_below="@+id/textTitleForChosenObject"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="40dp" />
+        android:layout_marginTop="20dp" />
 
     <RatingBar
         android:layout_width="wrap_content"
@@ -39,26 +39,27 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Button"
+        android:text="See Other"
         android:id="@+id/button"
         android:layout_alignParentBottom="true"
-        android:layout_toLeftOf="@+id/textTitleForChosenObject"
-        android:layout_toStartOf="@+id/textTitleForChosenObject" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="160dp"
         android:layout_height="wrap_content"
-        android:text="New Button"
+        android:text="Start Navigation"
         android:id="@+id/button2"
-        android:layout_alignTop="@+id/button"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_below="@+id/ratingBar2"
+        android:layout_toRightOf="@+id/button3"
+        android:layout_toEndOf="@+id/button3"
+        android:textSize="10sp" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Button"
+        android:text="Write Comment"
         android:id="@+id/button3"
-        android:layout_alignTop="@+id/button2"
+        android:layout_below="@+id/ratingBar2"
         android:layout_centerHorizontal="true" />
 </RelativeLayout>

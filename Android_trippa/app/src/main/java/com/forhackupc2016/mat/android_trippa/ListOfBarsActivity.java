@@ -44,12 +44,12 @@ String[] itemname = {"Bar Casa dos Coimbras",
 };
     Integer[] imgID ={
             R.drawable.buildig,
-            R.drawable.building2,
-            R.drawable.building3,
+            R.drawable.building7,
             R.drawable.building4,
+            R.drawable.building3,
             R.drawable.building5,
             R.drawable.building6,
-            R.drawable.building7,
+            R.drawable.building2,
             R.drawable.building8,
             R.drawable.building9,
             R.drawable.building10
