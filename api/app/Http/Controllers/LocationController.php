@@ -61,8 +61,18 @@ class LocationController extends Controller
     }
 
     public function locations($lat, $lon, $radius = 1000) {
+        $string = "[1, 2, 4, 5]";//exec("ls -l");
+        $locationIds = json_decode($string);
+
+        $results = [];
+        foreach($locationIds as $lid) {
+            $results[] = Location::find($lid);
+        }
+
         $gal = new GoogleLocationApi(env('GOOGLE_API'));
-        return $gal->get($lat, $lon, $radius);
+        $gal->get($lat, $lon, $radius);
+
+        return $results;
     }
 
     public function hotels($lat, $lon) {
