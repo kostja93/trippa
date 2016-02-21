@@ -2,16 +2,15 @@ package com.forhackupc2016.mat.android_trippa;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.widget.ArrayAdapter;
+import android.view.View;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
 
 import com.baoyz.swipemenulistview.SwipeMenu;
 import com.baoyz.swipemenulistview.SwipeMenuCreator;
@@ -30,17 +29,44 @@ import java.util.List;
 
 public class ListOfBarsActivity extends Activity{
     ListView list;
-String[] itemname = {"peta","haha","gaay"};
+String[] itemname = {"Bar Casa dos Coimbras",
+                    "Casa do Professor",
+                    "Spirito Cupcakes & Coffee",
+                    "Tongobriga Restaurante Bar",
+                    "T4 restaurante",
+        "Estúdio 22",
+        "Nova Bar- Esplanada Lda.",
+        "Gare Caffé",
+        "Mirante Bar",
+        "LIFESTYLE club",
+        "Berber"
+};
     Integer[] imgID ={
             R.drawable.buildig,
-            R.drawable.buildig,
-            R.drawable.buildig
+            R.drawable.building2,
+            R.drawable.building3,
+            R.drawable.building4,
+            R.drawable.building5,
+            R.drawable.building6,
+            R.drawable.building7,
+            R.drawable.building8,
+            R.drawable.building9,
+            R.drawable.building10
     };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listofbars);
 
+        RelativeLayout buttonSelectItem = (RelativeLayout) findViewById(R.id.clickableRLayoutAtBars);
+        buttonSelectItem.setClickable(true);
+        buttonSelectItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), ChosenObjectActivity.class);
+                startActivityForResult(intent, 0);
+            }
+        });
 //        ListAdapter adapter=new ListAdapter(this, itemname, imgID);
 //        list = (ListView) findViewById(R.id.listOfBars);
 //        list.setAdapter(adapter);
@@ -48,14 +74,6 @@ String[] itemname = {"peta","haha","gaay"};
         SwipeMenuListView menuListView = (SwipeMenuListView) findViewById(R.id.listViewForMenu);
         menuListView.setSwipeDirection(SwipeMenuListView.DIRECTION_LEFT); // swipe left
 
-        final List<Integer> list = new ArrayList<>();
-        list.add(R.drawable.buildig);
-        list.add(R.drawable.item001);
-        list.add(R.drawable.buildig);
-        list.add(R.drawable.item001);
-        list.add(R.drawable.buildig);
-        list.add(R.drawable.item001);
-        list.add(R.drawable.buildig);
 
       final SwipeArrayAdapter adapter=new SwipeArrayAdapter(this, itemname, imgID);
 //        final SwipeArrayAdapter<Integer> adapter = new SwipeArrayAdapter<Integer>(this, R.layout.list_row_item, list);
@@ -80,9 +98,19 @@ String[] itemname = {"peta","haha","gaay"};
             @Override
             public void create(SwipeMenu menu) {
 
+                SwipeMenuItem likeItem = new SwipeMenuItem(getApplicationContext());
+
+                likeItem.setBackground(new ColorDrawable(Color.rgb(0x57, 0xF7, 0x3E)));
+                likeItem.setWidth(400);
+//                openItem.setTitle("Open");
+//                openItem.setTitleSize(30);
+//                openItem.setTitleColor(Color.WHITE);
+                likeItem.setIcon(R.drawable.icon);
+                menu.addMenuItem(likeItem);
+
                 SwipeMenuItem openItem = new SwipeMenuItem(getApplicationContext());
 
-                openItem.setBackground(new ColorDrawable(Color.rgb(0xC9, 0xC9, 0xCE)));
+                openItem.setBackground(new ColorDrawable(Color.rgb(0xC0, 0xC0, 0xC0)));
                 openItem.setWidth(400);
                 openItem.setTitle("Open");
                 openItem.setTitleSize(30);
@@ -92,9 +120,9 @@ String[] itemname = {"peta","haha","gaay"};
 
                 SwipeMenuItem deleteItem = new SwipeMenuItem(getApplicationContext());
 
-                deleteItem.setBackground(new ColorDrawable(Color.rgb(0xF9, 0x3F, 0x25)));
+                deleteItem.setBackground(new ColorDrawable(Color.rgb(0xFF, 0x00, 0x00)));
                 deleteItem.setWidth(400);
-                deleteItem.setIcon(R.drawable.ic_delete_forever_black_48dp);
+                deleteItem.setIcon(R.drawable.icondislike);
                 menu.addMenuItem(deleteItem);
             }
         };
@@ -119,14 +147,15 @@ String[] itemname = {"peta","haha","gaay"};
                 String value = adapter.getItem(position);
                 switch (index) {
                     case 0:
-
-                                Intent intent = new Intent(getBaseContext(), ChosenObjectActivity.class);
-                                startActivityForResult(intent, 0);
-
-
+                        Toast.makeText(getApplicationContext(), "Liked! "+ value , Toast.LENGTH_SHORT).show();
+                        //TODO  delete view
                         break;
                     case 1:
-                        Toast.makeText(getApplicationContext(), "deleting "+ value , Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(getBaseContext(), ChosenObjectActivity.class);
+                                startActivityForResult(intent, 0);
+                        break;
+                    case 2:
+                        Toast.makeText(getApplicationContext(), "Disliked! "+ value , Toast.LENGTH_SHORT).show();
                         //TODO  delete view
                         break;
                 }
