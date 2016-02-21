@@ -53,6 +53,7 @@ String[] itemname = {"Bar Casa dos Coimbras",
             R.drawable.building9,
             R.drawable.building10
     };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
