@@ -15,6 +15,7 @@ import android.widget.AdapterView;
 import com.baoyz.swipemenulistview.SwipeMenu;
 import com.baoyz.swipemenulistview.SwipeMenuCreator;
 import com.baoyz.swipemenulistview.SwipeMenuItem;
+import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -26,25 +27,14 @@ import java.net.URL;
 
 public class ListOfBarsActivity extends Activity{
     ListView list;
-    String[] itemName ={
-            "Safari",
-            "Camera",
-            "Global",
-            "FireFox",
-            "UC Browser",
-            "Android Folder",
-            "VLC Player",
-            "Cold War"
-    };
+String[] itemname = {"peta","haha"};
     Integer[] imgID ={
             R.drawable.buildig,
             R.drawable.item002,
-            R.drawable.item001,
-            R.drawable.item001,
             R.drawable.buildig,
-            R.drawable.item002,
-            R.drawable.item003,
-            R.drawable.item002,
+            R.drawable.buildig,
+            R.drawable.buildig
+
     };
 
     @Override
@@ -52,11 +42,11 @@ public class ListOfBarsActivity extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listofbars);
 
-        ListAdapter adapter=new ListAdapter(this, itemName, imgID);
+        ListAdapter adapter=new ListAdapter(this, itemname, imgID);
         list = (ListView) findViewById(R.id.listOfBars);
         list.setAdapter(adapter);
 
-//        SwipeMenuListView menuListView = (SwipeMenuListView) findViewById(R.id.listView);
+//        SwipeMenuListView menuListView = (SwipeMenuListView) findViewById(R.id.listOfBars);
 //        menuListView.setSwipeDirection(SwipeMenuListView.DIRECTION_LEFT); // swipe left
 //        ListView listOfBars
 
@@ -97,9 +87,9 @@ public class ListOfBarsActivity extends Activity{
                 menu.addMenuItem(deleteItem); // add to menu
             }
         };
-
+//
 //        menuListView.setMenuCreator(creator); // set creator
-
+//
 //        menuListView.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
 //            @Override
 //            public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {

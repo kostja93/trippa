@@ -39,7 +39,6 @@ import android.widget.TextView;
 public class ListAdapter extends ArrayAdapter<String> {
 
     private final Activity context;
-    private final String[] itemname;
     private final Integer[] imgid;
 
     public ListAdapter(Activity context, String[] itemname, Integer[] imgid) {
@@ -47,20 +46,16 @@ public class ListAdapter extends ArrayAdapter<String> {
         // TODO Auto-generated constructor stub
 
         this.context=context;
-        this.itemname=itemname;
         this.imgid=imgid;
     }
 
-    @SuppressLint("ViewHolder")
+    //TODO inflater smooth machen, via Holder+recycling
     public View getView(int position,View rowView,ViewGroup parent) {
         LayoutInflater inflater=context.getLayoutInflater();
         rowView=inflater.inflate(R.layout.list_row_item, null,true);
 
-        TextView txtTitle = (TextView) rowView.findViewById(R.id.itemNameForListDemo);
         ImageView imageView = (ImageView) rowView.findViewById(R.id.imageViewSingleItem);
 
-
-            txtTitle.setText(itemname[position]);
            imageView.setImageResource(imgid[position]);
 
         return rowView;
