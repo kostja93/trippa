@@ -60,9 +60,20 @@ class LocationController extends Controller
         return $this->errorMsg();
     }
 
-    public function locations($lat, $lon, $radius = 1000) {
+    public function locations($lat, $lon, $radius = 1000, $user = 0) {
+        $radius_ = intval($radius / 1000);
+        $string = exec("java -jar trippai.jar $user $lat $lon $radius_");
+        $locationIds = json_decode($string);
+
+        $results = [];
+        foreach($locationIds as $lid) {
+            $results[] = Location::find($lid);
+        }
+
         $gal = new GoogleLocationApi(env('GOOGLE_API'));
-        return $gal->get($lat, $lon, $radius);
+        $gal->get($lat, $lon, $radius);
+
+        return $results;
     }
 
     public function hotels($lat, $lon) {

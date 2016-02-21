@@ -24,8 +24,10 @@ Route::post('user/like', 'LikeController@store');
 Route::get('location', 'LocationController@index');
 Route::post('location', 'LocationController@store');
 Route::get('location/{id}', 'LocationController@show');
-Route::get('location/{lat}/{lon}/{radius?}', 'LocationController@locations');
+Route::get('location/{lat}/{lon}/{radius?}/{user?}', 'LocationController@locations');
 Route::get('hotels/{lat}/{lon}', 'LocationController@hotels');
+
+Route::post('rate', 'RatingController@store');
 
 //Values
 Route::get('values', 'ValuesController@index');

@@ -11,7 +11,10 @@ abstract class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    protected function errorMsg() {
-        return ["status" => false];
+    protected function errorMsg($string = null) {
+        if (!$string)
+            return ["status" => false];
+        else
+            return ["status" => false, "message" => $string];
     }
 }

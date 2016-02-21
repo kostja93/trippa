@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\GoogleLocationApi;
 use App\Location;
+use App\Setting;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -26,9 +27,11 @@ class UserController extends Controller
 
         try {
             $user->save();
+
+//            $this->saveUserSetting($user);
             return $user;
         } catch(\Exception $e) {
-            return $this->errorMsg();
+            return $this->errorMsg($e->getMessage());
         }
     }
 
@@ -44,15 +47,22 @@ class UserController extends Controller
             $user = User::find($id);
             if ($user) {
                 /** @var User $user */
-                $user = $user->firstOrFail();
-                return [
-                    "user" =>$user,
-                    "settings" => $user->setting
-                ];
+                $user = $user->first();
+                return $user;
             } else
                 return [];
         }catch (\Exception $e) {
             return $this->errorMsg();
         }
+    }
+
+    private function saveUserSetting($user, $price, $equipment, $atmosphere) {
+        $setting = new Setting();
+        $setting->price_id = $price;
+        $setting->equipment_id = $equipment;
+        $setting->atmosphere_id = $atmosphere;
+        $setting->user_id = $user->id;
+
+        $setting->save();
     }
 }
