@@ -34,12 +34,12 @@ String[] itemname = {"Bar Casa dos Coimbras",
                     "Spirito Cupcakes & Coffee",
                     "Tongobriga Restaurante Bar",
                     "T4 restaurante",
-        "Estúdio 22",
-        "Nova Bar- Esplanada Lda.",
-        "Gare Caffé",
-        "Mirante Bar",
-        "LIFESTYLE club",
-        "Berber"
+                    "Estúdio 22",
+                    "Nova Bar- Esplanada Lda.",
+                    "Gare Caffé",
+                    "Mirante Bar",
+                    "LIFESTYLE club",
+                    "Berber"
 };
     Integer[] imgID ={
             R.drawable.buildig,
@@ -59,15 +59,6 @@ String[] itemname = {"Bar Casa dos Coimbras",
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listofbars);
 
-        RelativeLayout buttonSelectItem = (RelativeLayout) findViewById(R.id.clickableRLayoutAtBars);
-        buttonSelectItem.setClickable(true);
-        buttonSelectItem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), ChosenObjectActivity.class);
-                startActivityForResult(intent, 0);
-            }
-        });
 //        ListAdapter adapter=new ListAdapter(this, itemname, imgID);
 //        list = (ListView) findViewById(R.id.listOfBars);
 //        list.setAdapter(adapter);
