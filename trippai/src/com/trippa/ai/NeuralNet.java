@@ -87,7 +87,7 @@ public class NeuralNet {
 
     public double getOutput(int locationId, int userId){
         setLocationAverageRating(locationId);
-        initNNetFromDB(userId);
+        initiateUserNetwork(userId);
         prepareNetInputFromLocation(locationId);
         return outputNeuron.getOutput();
     }
@@ -120,12 +120,38 @@ public class NeuralNet {
         }
     }
 
-    public void initNNetFromDB(int userId){
+    private void initNNetFromDB(int userId){
         getWeightArrayFromDB(userId);
         initWeightingFromDB(weightArray);
     }
 
-    public void initFirstTimeUser(int userId){
+    public void initiateUserNetwork(int userId){
+        String sql = "SELECT count(*) as count FROM weighting WHERE user_id = " + userId;
+        int count = 0;
+        try {
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next())
+                count = rs.getInt("count");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        if(count != 0){
+            initNNetFromDB(userId);
+        }else{
+            initFirstTimeUser(userId);
+        }
+    }
+
+    public void resetNeuralNet(int userId){
+        String sql = "SELECT * FROM weighting WHERE user_id = " + userId;
+        try {
+            stmt.execute("DELETE FROM weighting WHERE user_id = " + userId);
+        }catch (Exception e){}
+
+    }
+
+    private void initFirstTimeUser(int userId){
             for(int i = 0; i < hiddenNeurons.length; i++){
                 for(int k = 0; k < inputNeurons.length; k++){
                     hiddenNeurons[i].getConnections()[k].setWeight(Math.random() * 2 - 1);

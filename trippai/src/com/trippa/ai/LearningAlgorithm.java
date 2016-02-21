@@ -15,7 +15,7 @@ public class LearningAlgorithm {
     private Statement stmt;
     private ResultSet likes;
 
-    private static double learnRate = 1;
+    private static double learnRate = 0.5;
     private double[] deltaWeightArray = new double[24];
     private int currentPattern = 0;
 
@@ -60,7 +60,7 @@ public class LearningAlgorithm {
     }
 
     private void applyLearningAlgorithm(){
-        for(int z = 0; z < 100; z++){
+        for(int z = 0; z < 50; z++){
             for(int i = 0; i < trainingPatterns.length; i++){
                 if(trainingPatterns[i] == null) break;
                  currentPattern = i;
@@ -73,9 +73,6 @@ public class LearningAlgorithm {
             deltaWeightArray[21] = learnRate * calcDeltaForOutput() * NeuralNet.getNeuralNet().getHiddenNeurons()[0].getOutput();
             deltaWeightArray[22] = learnRate * calcDeltaForOutput() * NeuralNet.getNeuralNet().getHiddenNeurons()[1].getOutput();
             deltaWeightArray[23] = learnRate * calcDeltaForOutput() * NeuralNet.getNeuralNet().getHiddenNeurons()[2].getOutput();
-            for(int m = 0; m < deltaWeightArray.length; m++) {
-                System.out.println("DeltaKante " + m + ": " + deltaWeightArray[m]);
-            }
         }
             }
     }

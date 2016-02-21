@@ -1,14 +1,11 @@
 package com.forhackupc2016.mat.android_trippa;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 /**
  * Created by mat on 20.02.16.
@@ -30,27 +27,42 @@ import android.widget.TextView;
 //    }
 //
 //}
+import android.app.Activity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
+
 public class ListAdapter extends ArrayAdapter<String> {
 
-        private final Activity context;
-        private final Integer[] imageUrl;
-        public ListAdapter(Activity context,  Integer[] imageUrl) {
+    private final Activity context;
+//    private final String[] itemname;
+    private final Integer[] imgid;
 
-            super(context, R.layout.input_of_listing);
-            this.context = context;
-            this.imageUrl = imageUrl;
+    public ListAdapter(Activity context, String[] itemname, Integer[] imgid) {
+        super(context, R.layout.activity_listofbars, itemname);
+        // TODO Auto-generated constructor stub
 
-        }
-        @Override
-        public View getView(int position, View view, ViewGroup parent) {
-
-            LayoutInflater inflater = context.getLayoutInflater();
-            View singleView= inflater.inflate(R.layout.input_of_listing, null, true);
-
-            ImageView imageView = (ImageView) singleView.findViewById(R.id.imageViewSingleItem);
-
-            imageView.setImageResource(imageUrl[position]);
-            return singleView;
-        }
+        this.context=context;
+//        this.itemname=itemname;
+        this.imgid=imgid;
     }
+
+    public View getView(int position,View view,ViewGroup parent) {
+        LayoutInflater inflater=context.getLayoutInflater();
+        View rowView=inflater.inflate(R.layout.activity_listofbars, null,true);
+
+//        TextView txtTitle = (TextView) rowView.findViewById(R.id.itemNameForListDemo);
+        ImageView imageView = (ImageView) rowView.findViewById(R.id.imageViewSingleItem);
+
+        if (imageView != null) {
+//            txtTitle.setText(itemname[position]);
+           imageView.setImageResource(imgid[position]);
+        }
+        return rowView;
+
+    }
+}
 

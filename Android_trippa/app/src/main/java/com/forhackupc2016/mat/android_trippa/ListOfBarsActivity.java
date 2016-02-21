@@ -1,105 +1,106 @@
 package com.forhackupc2016.mat.android_trippa;
 
+import android.app.Activity;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.Toast;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.Toast;
 
 import com.baoyz.swipemenulistview.SwipeMenu;
 import com.baoyz.swipemenulistview.SwipeMenuCreator;
 import com.baoyz.swipemenulistview.SwipeMenuItem;
-import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
+import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class ListingOfContentActivity extends AppCompatActivity {
-    private ImageView singleImgView;
-    private Bitmap bitmap;
-Integer[] imgID = {
-        R.drawable.item001,
-        R.drawable.item002,
-        R.drawable.item003,
-        R.drawable.buildig
+public class ListOfBarsActivity extends Activity{
+    ListView list;
+    String[] itemName ={
+            "Safari",
+            "Camera",
+            "Global",
+            "FireFox",
+            "UC Browser",
+            "Android Folder",
+            "VLC Player",
+            "Cold War"
+    };
+    Integer[] imgID ={
+            R.drawable.buildig,
+            R.drawable.item002,
+            R.drawable.item001,
+            R.drawable.item001,
+            R.drawable.buildig,
+            R.drawable.item002,
+            R.drawable.item003,
+            R.drawable.item002,
+    };
 
-
-}; ListView list;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_listing_of_content);
+        setContentView(R.layout.activity_listofbars);
 
-        list = (ListView) findViewById(R.id.list);
-        singleImgView = (ImageView) findViewById(R.id.imageViewSingleItem);
-        ListAdapter adapter = new ListAdapter(ListingOfContentActivity.this, imgID);
-
+        ListAdapter adapter=new ListAdapter(this, itemName, imgID);
+        list = (ListView) findViewById(R.id.listOfBars);
         list.setAdapter(adapter);
+
+//        SwipeMenuListView menuListView = (SwipeMenuListView) findViewById(R.id.listView);
+//        menuListView.setSwipeDirection(SwipeMenuListView.DIRECTION_LEFT); // swipe left
+//        ListView listOfBars
+
+        //Demo!
+
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
+                // TODO Auto-generated method stub
+//                String selectedItem = itemName[+position];
+//                Toast.makeText(getApplicationContext(), selectedItem, Toast.LENGTH_SHORT).show();
+
             }
         });
-
-        String name;
-        try {
-            ListedElement jsonObj = getHTTP();
-            name = jsonObj.getName();
-            String id = jsonObj.getId();
-            //bitmap = getBitmapFromUrl();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-//        SwipeMenuListView menuListView = (SwipeMenuListView) findViewById(R.id.listView);
-//        menuListView.setSwipeDirection(SwipeMenuListView.DIRECTION_LEFT);
-
+        //Demo end!
         SwipeMenuCreator creator = new SwipeMenuCreator() {
+
             @Override
             public void create(SwipeMenu menu) {
-                // create "open" item
-                SwipeMenuItem openItem = new SwipeMenuItem(getApplicationContext());
-                // set item background
-                openItem.setBackground(new ColorDrawable(Color.rgb(0xC9, 0xC9, 0xCE)));
-                // set item width
-                openItem.setWidth(90);
-                // set item title
-                openItem.setTitle("Open");
-                // set item title fontsize
-                openItem.setTitleSize(18);
-                // set item title font color
-                openItem.setTitleColor(Color.WHITE);
-                // add to menu
-                menu.addMenuItem(openItem);
 
-                // create "delete" item
-                SwipeMenuItem deleteItem = new SwipeMenuItem(getApplicationContext());
-                // set item background
-                deleteItem.setBackground(new ColorDrawable(Color.rgb(0xF9, 0x3F, 0x25)));
-                // set item width
-                deleteItem.setWidth(90);
-                // set a icon
-                deleteItem.setIcon(R.drawable.ic_delete_forever_black_48dp);
-                // add to menu
-                menu.addMenuItem(deleteItem);
+                SwipeMenuItem openItem = new SwipeMenuItem(getApplicationContext()); //create open item
+
+                openItem.setBackground(new ColorDrawable(Color.rgb(0xC9, 0xC9, 0xCE))); //set item background
+                openItem.setWidth(90); //set item width
+                openItem.setTitle("Open"); // set item title
+                openItem.setTitleSize(18); //set item title fontsize
+                openItem.setTitleColor(Color.WHITE); //set item title font color
+                menu.addMenuItem(openItem); //add to menu
+
+
+                SwipeMenuItem deleteItem = new SwipeMenuItem(getApplicationContext()); // create "delete" item
+
+                deleteItem.setBackground(new ColorDrawable(Color.rgb(0xF9, 0x3F, 0x25))); // set item background
+                deleteItem.setWidth(90); // set item width
+                deleteItem.setIcon(R.drawable.ic_delete_forever_black_48dp); // set a icon
+                menu.addMenuItem(deleteItem); // add to menu
             }
         };
-        // set creator
-//        menuListView.setMenuCreator(creator);
 
-//        menuListView.setOnMenuItemClickListener(new View.OnMenuItemClickListener() {
+//        menuListView.setMenuCreator(creator); // set creator
+
+//        menuListView.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
 //            @Override
 //            public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
 //                switch (index) {
@@ -114,51 +115,22 @@ Integer[] imgID = {
 //                return false;
 //            }
 //        });
-        SwipeMenuListView listView= (SwipeMenuListView) findViewById(R.id.listView);
-        listView.setOnSwipeListener(new SwipeMenuListView.OnSwipeListener() {
-            @Override
-            public void onSwipeStart(int position) {
-                // swipe start
 
-            }
-
-            @Override
-            public void onSwipeEnd(int position) {
-                // swipe end
-            }
-        });
-//        listView.smoothOpenMenu(position);
+    } // End of onCreate
 
 
-    } //End Of onCreate
 
-    public ListedElement getHTTP() throws IOException {
-//        URL url = new URL("http://10.4.180.249/location/41.37/-8.23/30000");
-//        HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-//
-//        BufferedInputStream bis = new BufferedInputStream(urlConnection.getInputStream());
-//        byte[] contents = new byte[1024];
-//
-//        int bytesRead=0;
-//        String strFileContents="";
-//        while( (bytesRead = bis.read(contents)) != -1){
-//            strFileContents = new String(contents, 0, bytesRead);
-//        }
-        String strFileContents = "{\n" +
-                "id: \"51\",\n" +
-                "name: \"Bar Casa dos Coimbras\",\n" +
-                "picture: \"https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=CmRdAAAAHX2z80L71nTvrEVhDskxpP-1EyUbKEk53TsKUxb_cFHo6EOHxTX_rVPmeCKBTSMxeAeuAivjmnxpChSmkPl5P__tptUvNguasEIYWXfui-xXqIeB4hSycg_mDZYv8q4sEhD1rQuGwe9FX-nFpX_7rnzoGhT_eZk-oiAtFz3p7vM4mnk7c-QakQ&key=AIzaSyBxw50IM6rmADRuFJaNRAXXU1puN103q2w\",\n" +
-                "lat: \"41.5499792\",\n" +
-                "lon: \"-8.4247005\",\n" +
-                "created_at: \"2016-02-20 14:47:40\",\n" +
-                "updated_at: \"2016-02-20 14:47:40\"\n" +
-                "}";
-        GsonBuilder builder = new GsonBuilder();
-        Gson gson = builder.create();
-        return gson.fromJson(strFileContents, ListedElement.class);
 
-        //return gson;
-    }
+
+
+
+
+
+
+
+
+
+
     public Bitmap getBitmapFromUrl(String src){
         try{
             URL url = new URL(src);
@@ -166,17 +138,49 @@ Integer[] imgID = {
             connection.setDoInput(true);
             connection.connect();
             InputStream input = connection.getInputStream();
+
             return BitmapFactory.decodeStream(input);
         } catch (IOException e) {
             e.printStackTrace();
         }
         return  null;
     }
+    public ListedElement getHTTP() throws IOException {
+        URL url = new URL(pseudoDB);
+        HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+
+        BufferedInputStream bis = new BufferedInputStream(urlConnection.getInputStream());
+        byte[] contents = new byte[1024];
+
+        int bytesRead;
+        String strFileContents="";
+        while( (bytesRead = bis.read(contents)) != -1){
+            strFileContents = new String(contents, 0, bytesRead);
+        }
+        GsonBuilder builder = new GsonBuilder();
+        Gson gson = builder.create();
+
+        return gson.fromJson(strFileContents, ListedElement.class);
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
     public String pseudoDB="[\n"+
             "{\n"+
             "id: \"51\",\n"+
             "name: \"Bar Casa dos Coimbras\",\n"+
-            "picture: \"https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=CmRdAAAAHX2z80L71nTvrEVhDskxpP-1EyUbKEk53TsKUxb_cFHo6EOHxTX_rVPmeCKBTSMxeAeuAivjmnxpChSmkPl5P__tptUvNguasEIYWXfui-xXqIeB4hSycg_mDZYv8q4sEhD1rQuGwe9FX-nFpX_7rnzoGhT_eZk-oiAtFz3p7vM4mnk7c-QakQ&key=AIzaSyBxw50IM6rmADRuFJaNRAXXU1puN103q2w\",\n"+
+            "picture: \"file:///home/mat/Documents/Android-Projects/trippa/Android_trippa/app/src/main/res/drawable/item003.png\",\n"+
             "lat: \"41.5499792\",\n"+
             "lon: \"-8.4247005\",\n"+
             "created_at: \"2016-02-20 14:47:40\",\n"+
@@ -203,7 +207,7 @@ Integer[] imgID = {
             "{\n"+
             "id: \"54\",\n"+
             "name: \"Casa do Professor\",\n"+
-            "picture: \"https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=CmRdAAAA4fmJ_YER-o33soYI5GWGhfzkOTn67i9nYkwIwWYe7BECAdDFyIwy8WhWOthwCNtXdKgGOUbLvpPFPxr3ZDpHDXk9uVDFNUzYtYaHUX_IE28Rfhd-bxKQ9RauUdpMVPoyEhDs6D5EetxiIPSbZicvgtxLGhRdM-Ow_C6CJl3jNU_V0MhnUciOLg&key=AIzaSyBxw50IM6rmADRuFJaNRAXXU1puN103q2w\",\n"+
+            "picture: \"file:///home/mat/Documents/Android-Projects/trippa/Android_trippa/app/src/main/res/drawable/buildig.jpg\",\n"+
             "lat: \"41.551211\",\n"+
             "lon: \"-8.420412\",\n"+
             "created_at: \"2016-02-20 14:47:40\",\n"+
@@ -212,7 +216,7 @@ Integer[] imgID = {
             "{\n"+
             "id: \"55\",\n"+
             "name: \"Spirito Cupcakes & Coffee\",\n"+
-            "picture: \"https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=CmRdAAAA6B9HDpfjg7Vv5Mx01LdgctMSFYatJHBSCpu9UnOC8tLGzBX7pA_W5sA-MMgxsoFnzwX8mGMB5-xJcoH5_mSMhx7nxz9m8DlreXdi0aS6Y4j_Y0BOua91icept80yqey7EhDDokAG9ClOLVGPnazd8CilGhT1NrHfdNFPiccJU2P0vhTXmoXwAw&key=AIzaSyBxw50IM6rmADRuFJaNRAXXU1puN103q2w\",\n"+
+            "picture: \"file:///home/mat/Documents/Android-Projects/trippa/Android_trippa/app/src/main/res/drawable/item002.png\",\n"+
             "lat: \"41.5502559\",\n"+
             "lon: \"-8.4246157\",\n"+
             "created_at: \"2016-02-20 14:47:40\",\n"+
