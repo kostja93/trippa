@@ -25,7 +25,7 @@ public class SelectFavoritesActivity extends AppCompatActivity {
         buttonSelectItem1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), ListOfBarsActivity.class);
+                Intent intent = new Intent(v.getContext(), SetOwnPreferences.class);
                 startActivityForResult(intent, 0);
             }
         });
