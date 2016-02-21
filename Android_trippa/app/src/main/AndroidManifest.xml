@@ -18,9 +18,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SelectActivity" />
+        <activity android:name=".ListOfBarsActivity" />
         <activity android:name=".SelectFavoritesActivity" />
-        <activity android:name=".RankingForFavoritesActivity" />
         <activity android:name=".ListingOfContentActivity"></activity>
     </application>
 
