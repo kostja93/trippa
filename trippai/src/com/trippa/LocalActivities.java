@@ -24,6 +24,7 @@ public class LocalActivities {
     private ResultSet users;
     private Statement statement;
 
+    Location[] loc;
 
     public LocalActivities(){
         if(thisObject == null){
@@ -48,13 +49,14 @@ public class LocalActivities {
         userLongitude = longitude;
         userLatitude = latitude;
         closeLocationsIds = new int[4];
-        int counter = 0;
+        int counter = 1;
 
         try {
             while (locations.next()) {
                 if (isCloseLocation(locations.getDouble("lon"), userLongitude, maxDistance)) {
                     if (isCloseLocation(locations.getDouble("lat"), userLatitude, maxDistance)) {
                         closeLocationsIds[counter] = locations.getInt("id");
+                        counter++;
                         if (counter == closeLocationsIds.length) enlargeArray(closeLocationsIds);
                     }
                 }
@@ -62,7 +64,7 @@ public class LocalActivities {
         } catch(Exception e){
             System.out.print("Error in getCloseLocation");
         }
-
+        closeLocationsIds[0] = counter;
         return closeLocationsIds;
     }
 
@@ -80,8 +82,49 @@ public class LocalActivities {
     }
 
     // ai rating
-    public double getRating(int locationId){
-        return 1;
+    private float getRating(int locationId, int userId){
+        double temp = NeuralNet.getNeuralNet().getOutput(locationId, userId);
+        temp *= 100;
+        return (float)temp;
+    }
+
+    public int[] getSortedLocations(double lon, double lat, int userId, int dis){
+        int[] temp = getCloseLocation(lon, lat, dis);
+        int arrayLength = 0;
+
+        loc = new Location[temp[0]-1];
+        for(int i = 0; i < loc.length; i++){
+           loc[i] = new Location(getRating(temp[i], userId), temp[i]);
+        }
+        sortLocations();
+        int[] output = new int[loc.length];
+            for (int i = 0; i < loc.length; i++) {
+                temp[i] = loc[i].getiD();
+            }
+        for(int i = 0; i < temp.length; i++){
+            if(i >= 5) break;
+            output[i] = temp[i];
+        }
+        return output;
+    }
+    private void sortLocations(){
+        Location[] orderedLoc = new Location[5];
+        Location temp = loc[0];
+        int counter = 0;
+        for(int i = 1; i < loc.length; i++){
+            for(int j = i + 1; j < loc.length; j++){
+                if(j >= 5) break;
+                if(loc[j].getRating() > temp.getRating()){
+                    counter = j;
+                }
+            }
+            temp = loc[counter];
+            loc[counter] = loc[i];
+            loc[i] = temp;
+        }
+        for(int i = 0; i < loc.length; i++) {
+            System.out.println(loc[i].getRating());
+        }
     }
 
 }
