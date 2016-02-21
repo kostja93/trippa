@@ -8,11 +8,31 @@
     <string name="setDefaultsScreenItem2">Sightseeing</string>
     <string name="setDefaultsScreenItem3">Hotels</string>
     <string name="rankingForFavoritesIntro">How should it be?</string>
-    <string name="rankingForFavoritesItem1">Ambiance</string>
+    <string name="rankingForFavoritesItem1">Atmosphere</string>
     <string name="rankingForFavoritesItem2">Furnishings</string>
     <string name="rankingForFavoritesItem3">Price Range</string>
     <string name="listingOfContentDrunk">Ok Im Drunk</string>
     <string name="rankingButtonContinue">Lets Go</string>
     <string name="titleForChosenObject">XXXXX name</string>
+
+        <string-array name="ambiance_array">
+            <item>Chilly</item>
+            <item>Party</item>
+            <item>Calm</item>
+        </string-array>
+
+        <string-array name="furnishings_array">
+            <item>High Class</item>
+            <item>Antique</item>
+            <item>Broken S</item>
+        </string-array>
+
+        <string-array name="pricerange_array">
+            <item>Cheap</item>
+            <item>Ok</item>
+            <item>High Class</item>
+        </string-array>
+
+
 
 </resources>

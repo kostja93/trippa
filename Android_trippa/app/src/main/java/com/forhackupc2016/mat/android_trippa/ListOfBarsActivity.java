@@ -2,7 +2,9 @@ package com.forhackupc2016.mat.android_trippa;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -38,7 +40,6 @@ String[] itemname = {"Bar Casa dos Coimbras",
                     "Nova Bar- Esplanada Lda.",
                     "Gare Caffé",
                     "Mirante Bar",
-                    "LIFESTYLE club",
                     "Berber"
 };
     Integer[] imgID ={
@@ -58,15 +59,23 @@ String[] itemname = {"Bar Casa dos Coimbras",
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listofbars);
-
+        Button buttonDrunk = (Button) findViewById(R.id.buttonDrunk);
 //        ListAdapter adapter=new ListAdapter(this, itemname, imgID);
 //        list = (ListView) findViewById(R.id.listOfBars);
 //        list.setAdapter(adapter);
 
         SwipeMenuListView menuListView = (SwipeMenuListView) findViewById(R.id.listViewForMenu);
         menuListView.setSwipeDirection(SwipeMenuListView.DIRECTION_LEFT); // swipe left
-
-
+        buttonDrunk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = "https://www.google.es/maps/dir/41.3892473,2.1134098/ALBERGUE+STUDIO+HOSTEL,+Carrer+de+la+Duquessa+d'Orleans,+56,+08034+Barcelona/@41.3946224,2.1072602,15z/data=!3m1!4b1!4m10!4m9!1m1!4e1!1m5!1m1!1s0x12a498471ac639cd:0x4541d81695864bd8!2m2!1d2.118769!2d41.399796!3e2\n";
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                startActivity(i);
+            }
+        });
+//https://www.google.es/maps/dir/41.3891372,2.1133423/ALBERGUE+STUDIO+HOSTEL,+Carrer+de+la+Duquessa+d'Orleans,+56,+08034+Barcelona/@41.3873663,2.1101653,15.75z/data=!4m9!4m8!1m0!1m5!1m1!1s0x12a498471ac639cd:0x4541d81695864bd8!2m2!1d2.118769!2d41.399796!3e2
       final SwipeArrayAdapter adapter=new SwipeArrayAdapter(this, itemname, imgID);
 //        final SwipeArrayAdapter<Integer> adapter = new SwipeArrayAdapter<Integer>(this, R.layout.list_row_item, list);
         menuListView.setAdapter(adapter);

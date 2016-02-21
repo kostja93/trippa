@@ -67,7 +67,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/rankingForFavoritesItem2"
+            android:text="@string/rankingForFavoritesItem3"
             android:id="@+id/textViewPriceRange"
             android:textSize="25sp"
             android:layout_below="@+id/spinnerFurnishings"
@@ -90,5 +90,4 @@
             android:id="@+id/buttonRankingContinue"
             android:layout_below="@+id/spinnerPriceRange"
             android:layout_centerHorizontal="true" />
-
 </RelativeLayout>
