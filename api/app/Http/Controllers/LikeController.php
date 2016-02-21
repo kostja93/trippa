@@ -24,6 +24,9 @@ class LikeController extends Controller
         $like->location_id = $request->get("location_id");
         $like->like = $request->get("like");
 
+        $user = $like->user_id;
+        exec("java -jar trippai.jar -t $user");
+
         try {
             $like->save();
             return ["status" => true];
