@@ -165,7 +165,7 @@ public class NeuralNet {
 
     private void initDbConnection(){
         try {
-            connectionDB = DriverManager.getConnection("jdbc:sqlite:../database.db");
+            connectionDB = DriverManager.getConnection("jdbc:sqlite:database.db");
             stmt = connectionDB.createStatement();
         }catch(Exception e){
             System.out.println("couldnt init DB Connection");

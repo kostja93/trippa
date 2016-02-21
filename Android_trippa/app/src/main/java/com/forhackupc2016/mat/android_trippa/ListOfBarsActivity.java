@@ -1,6 +1,7 @@
 package com.forhackupc2016.mat.android_trippa;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -15,6 +16,7 @@ import android.widget.AdapterView;
 import com.baoyz.swipemenulistview.SwipeMenu;
 import com.baoyz.swipemenulistview.SwipeMenuCreator;
 import com.baoyz.swipemenulistview.SwipeMenuItem;
+import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -23,98 +25,115 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ListOfBarsActivity extends Activity{
     ListView list;
-    String[] itemName ={
-            "Safari",
-            "Camera",
-            "Global",
-            "FireFox",
-            "UC Browser",
-            "Android Folder",
-            "VLC Player",
-            "Cold War"
-    };
+String[] itemname = {"peta","haha","gaay"};
     Integer[] imgID ={
             R.drawable.buildig,
-            R.drawable.item002,
-            R.drawable.item001,
-            R.drawable.item001,
             R.drawable.buildig,
-            R.drawable.item002,
-            R.drawable.item003,
-            R.drawable.item002,
+            R.drawable.buildig
     };
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listofbars);
 
-        ListAdapter adapter=new ListAdapter(this, itemName, imgID);
-        list = (ListView) findViewById(R.id.listOfBars);
-        list.setAdapter(adapter);
+//        ListAdapter adapter=new ListAdapter(this, itemname, imgID);
+//        list = (ListView) findViewById(R.id.listOfBars);
+//        list.setAdapter(adapter);
 
-//        SwipeMenuListView menuListView = (SwipeMenuListView) findViewById(R.id.listView);
-//        menuListView.setSwipeDirection(SwipeMenuListView.DIRECTION_LEFT); // swipe left
-//        ListView listOfBars
+        SwipeMenuListView menuListView = (SwipeMenuListView) findViewById(R.id.listViewForMenu);
+        menuListView.setSwipeDirection(SwipeMenuListView.DIRECTION_LEFT); // swipe left
 
+        final List<Integer> list = new ArrayList<>();
+        list.add(R.drawable.buildig);
+        list.add(R.drawable.item001);
+        list.add(R.drawable.buildig);
+        list.add(R.drawable.item001);
+        list.add(R.drawable.buildig);
+        list.add(R.drawable.item001);
+        list.add(R.drawable.buildig);
+
+      final SwipeArrayAdapter adapter=new SwipeArrayAdapter(this, itemname, imgID);
+//        final SwipeArrayAdapter<Integer> adapter = new SwipeArrayAdapter<Integer>(this, R.layout.list_row_item, list);
+        menuListView.setAdapter(adapter);
         //Demo!
 
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                // TODO Auto-generated method stub
+
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view,
+//                                    int position, long id) {
+//                // TODO Auto-generated method stub
 //                String selectedItem = itemName[+position];
 //                Toast.makeText(getApplicationContext(), selectedItem, Toast.LENGTH_SHORT).show();
 
-            }
-        });
+//            }
+//        });
         //Demo end!
         SwipeMenuCreator creator = new SwipeMenuCreator() {
 
             @Override
             public void create(SwipeMenu menu) {
 
-                SwipeMenuItem openItem = new SwipeMenuItem(getApplicationContext()); //create open item
+                SwipeMenuItem openItem = new SwipeMenuItem(getApplicationContext());
 
-                openItem.setBackground(new ColorDrawable(Color.rgb(0xC9, 0xC9, 0xCE))); //set item background
-                openItem.setWidth(90); //set item width
-                openItem.setTitle("Open"); // set item title
-                openItem.setTitleSize(18); //set item title fontsize
-                openItem.setTitleColor(Color.WHITE); //set item title font color
-                menu.addMenuItem(openItem); //add to menu
+                openItem.setBackground(new ColorDrawable(Color.rgb(0xC9, 0xC9, 0xCE)));
+                openItem.setWidth(400);
+                openItem.setTitle("Open");
+                openItem.setTitleSize(30);
+                openItem.setTitleColor(Color.WHITE);
+                menu.addMenuItem(openItem);
 
 
-                SwipeMenuItem deleteItem = new SwipeMenuItem(getApplicationContext()); // create "delete" item
+                SwipeMenuItem deleteItem = new SwipeMenuItem(getApplicationContext());
 
-                deleteItem.setBackground(new ColorDrawable(Color.rgb(0xF9, 0x3F, 0x25))); // set item background
-                deleteItem.setWidth(90); // set item width
-                deleteItem.setIcon(R.drawable.ic_delete_forever_black_48dp); // set a icon
-                menu.addMenuItem(deleteItem); // add to menu
+                deleteItem.setBackground(new ColorDrawable(Color.rgb(0xF9, 0x3F, 0x25)));
+                deleteItem.setWidth(400);
+                deleteItem.setIcon(R.drawable.ic_delete_forever_black_48dp);
+                menu.addMenuItem(deleteItem);
             }
         };
 
-//        menuListView.setMenuCreator(creator); // set creator
+        menuListView.setMenuCreator(creator);
 
-//        menuListView.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
-//            @Override
-//            public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
-//                switch (index) {
-//                    case 0:
-//                        // open
-//                        break;
-//                    case 1:
-//                        // delete
-//                        break;
-//                }
-//                // false : close the menu; true : not close the menu
-//                return false;
-//            }
-//        });
+        menuListView.setOnSwipeListener(new SwipeMenuListView.OnSwipeListener() {
+
+            @Override
+            public void onSwipeStart(int position) {
+                // swipe start
+            }
+
+            @Override
+            public void onSwipeEnd(int position) {
+                // swipe end
+            }
+        });
+        menuListView.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
+                String value = adapter.getItem(position);
+                switch (index) {
+                    case 0:
+
+                                Intent intent = new Intent(getBaseContext(), ChosenObjectActivity.class);
+                                startActivityForResult(intent, 0);
+
+
+                        break;
+                    case 1:
+                        Toast.makeText(getApplicationContext(), "deleting "+ value , Toast.LENGTH_SHORT).show();
+                        //TODO  delete view
+                        break;
+                }
+                // false : close the menu; true : not close the menu
+                return false;
+            }
+        });
 
     } // End of onCreate
 
@@ -130,15 +149,13 @@ public class ListOfBarsActivity extends Activity{
 
 
 
-
-    public Bitmap getBitmapFromUrl(String src){
+    public Bitmap getBitmapFromUrl(){
         try{
-            URL url = new URL(src);
+            URL url = new URL(getHTTP().getPicture());
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setDoInput(true);
             connection.connect();
             InputStream input = connection.getInputStream();
-
             return BitmapFactory.decodeStream(input);
         } catch (IOException e) {
             e.printStackTrace();

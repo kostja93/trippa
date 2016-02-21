@@ -13,5 +13,6 @@
     <string name="rankingForFavoritesItem3">Price Range</string>
     <string name="listingOfContentDrunk">Ok Im Drunk</string>
     <string name="rankingButtonContinue">Lets Go</string>
+    <string name="titleForChosenObject">XXXXX name</string>
 
 </resources>
