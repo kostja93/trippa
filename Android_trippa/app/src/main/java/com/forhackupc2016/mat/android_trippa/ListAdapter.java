@@ -1,5 +1,6 @@
 package com.forhackupc2016.mat.android_trippa;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,29 +39,30 @@ import android.widget.TextView;
 public class ListAdapter extends ArrayAdapter<String> {
 
     private final Activity context;
-//    private final String[] itemname;
+    private final String[] itemname;
     private final Integer[] imgid;
 
     public ListAdapter(Activity context, String[] itemname, Integer[] imgid) {
-        super(context, R.layout.activity_listofbars, itemname);
+        super(context, R.layout.list_row_item, itemname);
         // TODO Auto-generated constructor stub
 
         this.context=context;
-//        this.itemname=itemname;
+        this.itemname=itemname;
         this.imgid=imgid;
     }
 
-    public View getView(int position,View view,ViewGroup parent) {
+    @SuppressLint("ViewHolder")
+    public View getView(int position,View rowView,ViewGroup parent) {
         LayoutInflater inflater=context.getLayoutInflater();
-        View rowView=inflater.inflate(R.layout.activity_listofbars, null,true);
+        rowView=inflater.inflate(R.layout.list_row_item, null,true);
 
-//        TextView txtTitle = (TextView) rowView.findViewById(R.id.itemNameForListDemo);
+        TextView txtTitle = (TextView) rowView.findViewById(R.id.itemNameForListDemo);
         ImageView imageView = (ImageView) rowView.findViewById(R.id.imageViewSingleItem);
 
-        if (imageView != null) {
-//            txtTitle.setText(itemname[position]);
+
+            txtTitle.setText(itemname[position]);
            imageView.setImageResource(imgid[position]);
-        }
+
         return rowView;
 
     }
